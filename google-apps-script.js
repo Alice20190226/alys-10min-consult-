@@ -138,6 +138,15 @@ function trim(value) {
   return value == null ? '' : String(value).trim();
 }
 
+function escapeHtml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function validatePayload(data) {
   const requiredFields = ['name', 'email', 'change_goal', 'timeline', 'past_attempts', 'six_month_worry', 'slot_iso', 'confirm'];
   requiredFields.forEach(function(field) {
@@ -269,12 +278,17 @@ function getSheet() {
 
 function sendClientSuccessEmail(data, start, end, meetLink) {
   const subject = 'Alys 巫｜10分鐘諮詢行前通知';
-  const body = [
+  const timeText = formatDateTime(start) + ' - ' + Utilities.formatDate(end, CONFIG.TIME_ZONE, 'HH:mm');
+  const safeName = escapeHtml(data.name);
+  const safeTime = escapeHtml(timeText);
+  const safeMeetLink = escapeHtml(meetLink);
+
+  const plainBody = [
     'Hi ' + data.name + '，',
     '',
     '這是你預約的 10 分鐘諮詢時段',
     '',
-    '時間：' + formatDateTime(start) + ' - ' + Utilities.formatDate(end, CONFIG.TIME_ZONE, 'HH:mm'),
+    '時間：' + timeText,
     '',
     'Google Meet：' + meetLink,
     '',
@@ -308,7 +322,32 @@ function sendClientSuccessEmail(data, start, end, meetLink) {
     'Alys',
   ].join('\n');
 
-  MailApp.sendEmail(data.email, subject, body, { name: 'Alys 巫' });
+  const htmlBody = [
+    '<div style="font-family: Arial, \'Noto Sans TC\', sans-serif; font-size: 15px; line-height: 1.8; color: #202124;">',
+    '<p>Hi ' + safeName + '，</p>',
+    '<p>這是你預約的 10 分鐘諮詢時段</p>',
+    '<p><strong>時間：</strong>' + safeTime + '</p>',
+    '<p><strong>Google Meet：</strong><a href="' + safeMeetLink + '" target="_blank">' + safeMeetLink + '</a></p>',
+    '<p>這 10 分鐘裡，我會陪你一起整理目前的狀態，<br>看看現在真正卡住的地方，可能是什麼。<br>有時候，不是你不夠努力，<br>而是有些模式已經默默影響你很久了。</p>',
+    '<hr style="border: 0; border-top: 1px solid #dadce0; margin: 24px 0;">',
+    '<p>諮詢前，你可以稍微想一下：</p>',
+    '<p>・你現在最困擾的是什麼？</p>',
+    '<p>・這個狀態持續多久了？</p>',
+    '<p>不需要準備很多，</p>',
+    '<p>帶著你現在最真實的狀態來就可以了</p>',
+    '<hr style="border: 0; border-top: 1px solid #dadce0; margin: 24px 0;">',
+    '<p>如果臨時需要調整時間，</p>',
+    '<p>請提前透過 Line@ 跟我聯繫。</p>',
+    '<p><strong>Line@：</strong><a href="https://lin.ee/OYa16Dv" target="_blank">https://lin.ee/OYa16Dv</a></p>',
+    '<p>我們線上見 😊</p>',
+    '<p>Alys</p>',
+    '</div>',
+  ].join('');
+
+  MailApp.sendEmail(data.email, subject, plainBody, {
+    name: 'Alys 巫',
+    htmlBody: htmlBody,
+  });
 }
 
 function sendOwnerSuccessEmail(data, start, end, meetLink) {
@@ -395,6 +434,8 @@ function jsonResponse(payload) {
     .createTextOutput(JSON.stringify(payload))
     .setMimeType(ContentService.MimeType.JSON);
 }
+
+
 
 
 
