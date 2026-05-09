@@ -272,7 +272,7 @@ function sendClientSuccessEmail(data, start, end, meetLink) {
   const body = [
     'Hi ' + data.name + '，',
     '',
-    '這是你預約的 10 分鐘諮詢時段 😊',
+    '這是你預約的 10 分鐘諮詢時段',
     '',
     '時間：' + formatDateTime(start) + ' - ' + Utilities.formatDate(end, CONFIG.TIME_ZONE, 'HH:mm'),
     '',
@@ -395,6 +395,7 @@ function jsonResponse(payload) {
     .createTextOutput(JSON.stringify(payload))
     .setMimeType(ContentService.MimeType.JSON);
 }
+
 
 
 
