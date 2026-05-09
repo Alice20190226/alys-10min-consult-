@@ -175,9 +175,6 @@ function createMeetEvent(data, start, end) {
     '',
     '請於預約時間點擊 Google Meet 連結進入會議。',
     '',
-    '若臨時需要調整時間，請透過 LINE@ 聯繫：',
-    'https://lin.ee/OYa16Dv',
-    '',
     'Alys',
   ].join('\n');
 
@@ -398,6 +395,7 @@ function jsonResponse(payload) {
     .createTextOutput(JSON.stringify(payload))
     .setMimeType(ContentService.MimeType.JSON);
 }
+
 
 
 
