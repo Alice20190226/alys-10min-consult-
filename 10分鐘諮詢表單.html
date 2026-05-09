@@ -184,6 +184,28 @@ button:focus-visible {
   padding: 4px 8px 0;
 }
 
+.success-card {
+  padding: 28px 24px;
+}
+
+.success-card[hidden] {
+  display: none;
+}
+
+.success-card h2 {
+  margin: 0 0 14px;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.success-card p {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  white-space: pre-line;
+}
+
 @media (max-width: 520px) {
   .form-shell { width: min(100% - 20px, 760px); padding-top: 18px; }
   .form-header, .question-card { padding-left: 18px; padding-right: 18px; }
@@ -286,7 +308,13 @@ button:focus-visible {
       </div>
     </form>
 
-    <p class="footer-note">送出後系統會檢查 Google Calendar。若該時段仍可預約，你會收到含 Google Meet 連結的確認信。</p>
+    <p class="footer-note" id="footer-note">送出後系統會檢查 Google Calendar。若該時段仍可預約，你會收到含 Google Meet 連結的確認信。</p>
+
+    <section class="form-card success-card" id="success-message" hidden>
+      <h2>你的預約已送出</h2>
+      <p>如果預約成功，你會收到 Google Calendar 邀請信，以及一封 10 分鐘諮詢行前通知。
+請留意你的信箱。</p>
+    </section>
   </main>
 
 <script>
@@ -297,6 +325,8 @@ const TIME_ZONE = 'Asia/Taipei';
 const form = document.getElementById('consult-form');
 const statusEl = document.getElementById('status');
 const slotOptions = document.getElementById('slot-options');
+const footerNote = document.getElementById('footer-note');
+const successMessage = document.getElementById('success-message');
 
 function setStatus(message) {
   statusEl.textContent = message;
@@ -402,8 +432,10 @@ form.addEventListener('submit', async function(event) {
     });
 
     form.reset();
-    setStatus('已送出。系統會檢查時段並寄出預約結果通知信。');
-    await loadAvailableSlots();
+    form.hidden = true;
+    footerNote.hidden = true;
+    successMessage.hidden = false;
+    successMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (error) {
     setStatus('送出時發生問題，請稍後再試。');
   } finally {
@@ -415,6 +447,7 @@ loadAvailableSlots();
 </script>
 </body>
 </html>
+
 
 
 
