@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10分鐘諮詢預約表單</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0ebf8;
+  --surface: #ffffff;
+  --text: #202124;
+  --muted: #5f6368;
+  --border: #dadce0;
+  --accent: #673ab7;
+  --accent-dark: #512da8;
+  --error: #d93025;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans TC', Arial, sans-serif;
+  line-height: 1.65;
+}
+
+.form-shell {
+  width: min(760px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 56px;
+}
+
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.form-header {
+  border-top: 10px solid var(--accent);
+  padding: 28px 24px 22px;
+}
+
+.form-header h1 {
+  margin: 0 0 14px;
+  font-size: 30px;
+  line-height: 1.28;
+  font-weight: 400;
+}
+
+.form-intro {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  white-space: pre-line;
+}
+
+.required-note {
+  margin-top: 18px;
+  color: var(--error);
+  font-size: 13px;
+}
+
+.question-card {
+  padding: 22px 24px 24px;
+}
+
+.question-title {
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.required { color: var(--error); }
+
+.helper {
+  margin: -4px 0 14px;
+  color: var(--muted);
+  font-size: 13px;
+  white-space: pre-line;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: 10px 0 8px;
+  color: var(--text);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+}
+
+textarea {
+  min-height: 116px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  outline: 0;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 7px;
+}
+
+.option-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.option input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  flex: 0 0 auto;
+}
+
+.confirm-text {
+  margin: 0 0 18px;
+  font-size: 14px;
+  white-space: pre-line;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 0 0;
+}
+
+button {
+  border: 0;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 24px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s;
+}
+
+button:hover,
+button:focus-visible {
+  background: var(--accent-dark);
+  box-shadow: 0 2px 6px rgba(60, 64, 67, 0.25);
+  outline: 0;
+}
+
+.status {
+  min-height: 24px;
+  margin: 0;
+  color: var(--accent-dark);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.footer-note {
+  color: var(--muted);
+  font-size: 12px;
+  padding: 4px 8px 0;
+}
+
+@media (max-width: 520px) {
+  .form-shell { width: min(100% - 20px, 760px); padding-top: 18px; }
+  .form-header, .question-card { padding-left: 18px; padding-right: 18px; }
+  .form-header h1 { font-size: 25px; }
+  .actions { align-items: flex-start; flex-direction: column; }
+}
+</style>
+</head>
+<body>
+  <main class="form-shell">
+    <section class="form-card form-header">
+      <h1>10分鐘諮詢預約表單</h1>
+      <p class="form-intro">在填寫之前，先讓你了解這10分鐘能做什麼。
+很多人會以為，自己只是還沒準備好。
+但更常見的情況是：
+你其實已經卡在同一個循環裡一段時間了。
+想改變，卻一直停在「再想一下」。
+知道有問題，卻不知道真正卡住自己的到底是什麼。
+
+這10分鐘，不是一般的聊天諮詢。
+而是幫你一起看清楚：
+👉 你現在真正卡住的地方
+👉 為什麼你一直停在原地
+👉 現在最適合你的下一步方向
+
+這10分鐘不適合你，如果：
+✘ 你還在觀望，只是想先看看再說
+✘ 你希望有人直接給你答案，但不想做任何改變
+✘ 你的狀況剛發生，還在情緒最激烈的時候
+
+如果你已經試過很多方法，
+卻還是一直回到同樣的狀態，
+那這10分鐘，是為你設計的。</p>
+      <div class="required-note">* 表示必填問題</div>
+    </section>
+
+    <form id="consult-form">
+      <section class="form-card question-card">
+        <h2 class="question-title">姓名或暱稱 <span class="required">*</span></h2>
+        <input name="name" type="text" autocomplete="name" required>
+      </section>
+
+      <section class="form-card question-card">
+        <h2 class="question-title">Email <span class="required">*</span></h2>
+        <input name="email" type="email" autocomplete="email" required>
+      </section>
+
+      <section class="form-card question-card">
+        <h2 class="question-title">Q1｜你目前最想改變的是什麼？ <span class="required">*</span></h2>
+        <p class="helper">例如：
+一直在同一份工作裡內耗，但不知道該不該離開。
+總是在關係裡反覆受傷，卻不知道問題在哪。</p>
+        <textarea name="change_goal" required></textarea>
+      </section>
+
+      <section class="form-card question-card">
+        <h2 class="question-title">Q2｜你希望這次改變，最晚多久內開始發生？ <span class="required">*</span></h2>
+        <div class="option-list">
+          <label class="option"><input type="radio" name="timeline" value="一個月內" required>一個月內</label>
+          <label class="option"><input type="radio" name="timeline" value="三個月內">三個月內</label>
+          <label class="option"><input type="radio" name="timeline" value="半年內">半年內</label>
+          <label class="option"><input type="radio" name="timeline" value="沒有特別期限">沒有特別期限</label>
+        </div>
+      </section>
+
+      <section class="form-card question-card">
+        <h2 class="question-title">Q3｜你過去為了解決這個問題，做過哪些嘗試？ <span class="required">*</span></h2>
+        <p class="helper">例如：
+看書、自我成長課程、諮商、占卜、轉職、離開關係、努力改變自己⋯⋯</p>
+        <textarea name="past_attempts" required></textarea>
+      </section>
+
+      <section class="form-card question-card">
+        <h2 class="question-title">Q4｜如果半年後狀態完全沒變，你最擔心的是什麼？ <span class="required">*</span></h2>
+        <p class="helper">例如：
+覺得自己又浪費了半年，還是在原地。
+繼續困在不適合自己的生活裡。</p>
+        <textarea name="six_month_worry" required></textarea>
+      </section>
+
+      <section class="form-card question-card">
+        <h2 class="question-title">Q5｜請選擇你方便的諮詢時段（單選） <span class="required">*</span></h2>
+        <p class="helper">目前開放未來 4 週的週四、週五 11:30 / 12:00 / 12:30。實際是否預約成功，會以系統檢查 Google Calendar 後寄出的確認信為準。</p>
+        <div class="option-list" id="slot-options"></div>
+      </section>
+
+      <section class="form-card question-card">
+        <h2 class="question-title">在送出之前，請先確認 <span class="required">*</span></h2>
+        <p class="confirm-text">我知道，
+真正的改變不會只靠一次對話發生。
+但我願意開始面對，
+現在真正卡住我的問題，
+我才有機會跳出循環。</p>
+        <label class="option"><input type="checkbox" name="confirm" required>我已閱讀並確認</label>
+      </section>
+
+      <div class="actions">
+        <button type="submit">提交</button>
+        <p class="status" id="status" role="status"></p>
+      </div>
+    </form>
+
+    <p class="footer-note">送出後系統會檢查 Google Calendar。若該時段仍可預約，你會收到含 Google Meet 連結的確認信。</p>
+  </main>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyVypeCCYDWLXxHaYHwoczJMA6V1gREOCOgH0Byul6bqUtGObGDbK9NU4AT53RLYK5J/exec';
+const FORM_TOKEN = 'alys-consult-2026-x9Kp4Qm7Vz';
+const TIME_ZONE = 'Asia/Taipei';
+
+const form = document.getElementById('consult-form');
+const statusEl = document.getElementById('status');
+const slotOptions = document.getElementById('slot-options');
+
+function setStatus(message) {
+  statusEl.textContent = message;
+}
+
+function loadJsonp(url) {
+  return new Promise(function(resolve, reject) {
+    const callbackName = 'availabilityCallback_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    const script = document.createElement('script');
+    const separator = url.includes('?') ? '&' : '?';
+
+    window[callbackName] = function(payload) {
+      delete window[callbackName];
+      script.remove();
+      resolve(payload);
+    };
+
+    script.onerror = function() {
+      delete window[callbackName];
+      script.remove();
+      reject(new Error('Availability request failed'));
+    };
+
+    script.src = url + separator + 'callback=' + encodeURIComponent(callbackName);
+    document.body.append(script);
+  });
+}
+
+function renderSlots(slots) {
+  slotOptions.innerHTML = '';
+
+  if (!slots.length) {
+    slotOptions.innerHTML = '<p class="helper">目前未來 4 週的固定時段都已預約或暫停開放，請稍後再回來查看。</p>';
+    return;
+  }
+
+  slots.forEach(function(slot, index) {
+    const label = document.createElement('label');
+    label.className = 'option';
+
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = 'slot_iso';
+    input.value = slot.iso;
+    input.required = index === 0;
+    input.dataset.label = slot.label;
+
+    label.append(input, document.createTextNode(slot.label));
+    slotOptions.append(label);
+  });
+}
+
+async function loadAvailableSlots() {
+  if (APPS_SCRIPT_URL.includes('PASTE_YOUR')) {
+    setStatus('表單已準備好。請先把 Apps Script 部署網址貼到這個 HTML 裡。');
+    return;
+  }
+
+  slotOptions.innerHTML = '<p class="helper">正在載入可預約時段...</p>';
+
+  try {
+    const url = APPS_SCRIPT_URL
+      + '?action=availability'
+      + '&form_token=' + encodeURIComponent(FORM_TOKEN)
+      + '&t=' + Date.now();
+    const payload = await loadJsonp(url);
+
+    if (!payload.ok) throw new Error(payload.message || payload.reason || 'Availability unavailable');
+
+    renderSlots(payload.slots || []);
+  } catch (error) {
+    slotOptions.innerHTML = '<p class="helper">可預約時段暫時載入失敗，請重新整理頁面再試一次。</p>';
+  }
+}
+
+function buildPayload() {
+  const data = new FormData(form);
+  const selectedSlot = form.querySelector('input[name="slot_iso"]:checked');
+  if (selectedSlot) data.set('slot_label', selectedSlot.dataset.label);
+  data.set('timezone', TIME_ZONE);
+  data.set('duration_minutes', '10');
+  data.set('form_token', FORM_TOKEN);
+  return data;
+}
+
+form.addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  if (!form.querySelector('input[name="slot_iso"]:checked')) {
+    setStatus('請先選擇一個可預約時段。');
+    return;
+  }
+
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  setStatus('正在送出，請稍候...');
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: buildPayload()
+    });
+
+    form.reset();
+    setStatus('已送出。系統會檢查時段並寄出預約結果通知信。');
+    await loadAvailableSlots();
+  } catch (error) {
+    setStatus('送出時發生問題，請稍後再試。');
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+loadAvailableSlots();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
